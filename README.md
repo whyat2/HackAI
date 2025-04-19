@@ -1,2 +1,4 @@
 # HackAI
-Repository for HackAI code
+Repository for HackAI code and colaboration
+
+Ideas: 
