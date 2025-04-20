@@ -20,6 +20,12 @@ def getStuff():
 def getCourses():
     return courses.getCourses()
 
+@app.route('/courseQuery')
+def getCourseStuff():
+    text = request.args.get("text", "CS 2336")
+    print(text)
+    return queryStuff.getCourseQuery(text)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
