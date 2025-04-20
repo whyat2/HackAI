@@ -11,3 +11,4 @@ env_path = ".venv/Scripts/pip"
 #subprocess.run([env_path, "install", "numpy"])
 #subprocess.run([env_path, "install", "google-generativeai"])
 subprocess.run([env_path, "install", "flask"])
+subprocess.run([env_path, "install", "flask_cors"])

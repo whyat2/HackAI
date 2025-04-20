@@ -37,14 +37,24 @@ function App() {
 
   // Parse club string to extract details
   const parseClubString = (clubStr) => {
-    const titleMatch = clubStr.match(/Title: (.*?)\n/);
-    const categoryMatch = clubStr.match(/Category: (.*?)\n/);
-    const missionMatch = clubStr.match(/Mission Description: (.*?)}/);
+    //const titleMatch = clubStr.match(/Title: (.*?)\n/);
+
+    const parseClubString = clubStr.split('$$$');
+    const titleMatch = parseClubString[0];
+    const categoryMatch = parseClubString[1];
+    const missionMatch = parseClubString[2];
     
+    /*
+    const titleMatch = clubStr.match(/Title:\s*([^\n]+)/);
+    const categoryMatch = clubStr.match(/Category:\s*([^\n]+)/);
+    const missionMatch = clubStr.match(/Mission Description:\s*([^}]+)/);
+    */
+   
+    console.log(titleMatch)
     return {
-      title: titleMatch ? titleMatch[1] : 'Unknown Club',
-      category: categoryMatch ? categoryMatch[1] : 'Uncategorized',
-      mission_description: missionMatch ? missionMatch[1] : 'No description available',
+      title: titleMatch.slice(4),//titleMatch ? titleMatch[1] : 'Unknown Club',
+      category: categoryMatch, //? categoryMatch[1] : 'Uncategorized',
+      mission_description: missionMatch, //? missionMatch[1] : 'No description available',
       president_name: 'Not specified', // These might not be in the string format
       email: 'No contact information'  // These might not be in the string format
     };
@@ -123,12 +133,16 @@ function App() {
       const response = await fetch(`http://localhost:5000/query?text=${encodeURIComponent(keyword)}`);
       if (!response.ok) throw new Error('Search failed');
       
-      const clubStrings = await response.json();
-      
+      const clubData = await response.text();
+      const clubString = clubData.slice(1, -6);
+      // const result = `,${clubString},`;
+      const clubStrings = clubString.split(/@#",/)
+      console.log(clubStrings);
       // Parse the club strings and handle both array and single string responses
       let parsedClubs = [];
       if (Array.isArray(clubStrings)) {
         parsedClubs = clubStrings.map(clubStr => parseClubString(clubStr));
+        //console.log(parsedClubs);
       } else if (typeof clubStrings === 'string') {
         // If backend returns a single string
         parsedClubs = [parseClubString(clubStrings)];
