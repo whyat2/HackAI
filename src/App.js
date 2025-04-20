@@ -44,7 +44,7 @@ function App() {
     //const titleMatch = clubStr.match(/Title: (.*?)\n/);
 
     const parseClubString = clubStr.split('$$$');
-    console.log(parseClubString);
+    //console.log(parseClubString);
     const titleMatch = parseClubString[0];
     const categoryMatch = parseClubString[1];
     const missionMatch = parseClubString[2];
