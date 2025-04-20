@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import productionFlaskStuff.getQueryInfo as queryStuff
 import productionFlaskStuff.getCourses as courses
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
   
 app = Flask(__name__)
 CORS(app)
@@ -21,6 +21,7 @@ def getCourses():
     return courses.getCourses()
 
 @app.route('/courseQuery')
+@cross_origin()
 def getCourseStuff():
     text = request.args.get("text", "CS 2336")
     print(text)

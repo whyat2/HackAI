@@ -1,5 +1,6 @@
 import json
 
+
 def getCourses():
     with open("./data/courses.json", "r") as f:
         data = json.load(f)
@@ -20,6 +21,6 @@ def getCourses():
         numbers.append(number)
         titles.append(title)
         descriptions.append(description)
-        jsonStrings.append("{Prefix: \'" + prefix + "\',Number: \'" + number + "\',Title: " + title + "\'Description: \'" + description + "\'}")
+        jsonStrings.append(str(prefix) + "$$$" + str(number) + "$$$" + str(title) + "$$$" + str(description) + "@#")
 
     return jsonStrings

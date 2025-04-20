@@ -49,10 +49,11 @@ for prefix, number, title, description in zip(prefixes, numbers, titles, descrip
         unique_descriptions.append(description)
 
 def getCourses(courseString):
+    print(courseString)
     getData = courseString.split(" ")
     prefix = getData[0]
     numbers = getData[1]
-    print(title)
+    print(prefix)
     for i in range(0, len(unique_prefixes)):
         if unique_prefixes[i] == prefix and unique_numbers[i] == numbers:
             return unique_titles[i], unique_descriptions[i]

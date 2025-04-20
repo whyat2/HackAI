@@ -22,16 +22,20 @@ function App() {
 
   // Parse course string to extract subject prefix and course number
   const parseCourseString = (courseStr) => {
-    const prefixMatch = courseStr.match(/Prefix: (.*?)\n/);
-    const numberMatch = courseStr.match(/Number: (.*?)\n/);
-    const titleMatch = courseStr.match(/Title: (.*?)\n/);
-    const descriptionMatch = courseStr.match(/Description: (.*?)}/);
-    
+    // const prefixMatch = courseStr.match(/Prefix: (.*?)\n/);
+    // const numberMatch = courseStr.match(/Number: (.*?)\n/);
+    // const titleMatch = courseStr.match(/Title: (.*?)\n/);
+    // const descriptionMatch = courseStr.match(/Description: (.*?)}/);
+    const parseCourseString = courseStr.split('$$$');
+    const prefixMatch = parseCourseString[0];
+    const numberMatch = parseCourseString[1];
+    const titleMatch = parseCourseString[2];
+    const descriptionMatch = parseCourseString[3];
     return {
-      subject_prefix: prefixMatch ? prefixMatch[1] : '',
-      course_number: numberMatch ? numberMatch[1] : '',
-      title: titleMatch ? titleMatch[1] : '',
-      description: descriptionMatch ? descriptionMatch[1] : ''
+      subject_prefix: prefixMatch.slice(4), //? prefixMatch[1] : '',
+      course_number: numberMatch, //? numberMatch[1] : '',
+      title: titleMatch, //? titleMatch[1] : '',
+      description: descriptionMatch //? descriptionMatch[1] : ''
     };
   };
 
@@ -40,6 +44,7 @@ function App() {
     //const titleMatch = clubStr.match(/Title: (.*?)\n/);
 
     const parseClubString = clubStr.split('$$$');
+    console.log(parseClubString);
     const titleMatch = parseClubString[0];
     const categoryMatch = parseClubString[1];
     const missionMatch = parseClubString[2];
@@ -70,7 +75,11 @@ function App() {
         const response = await fetch('http://localhost:5000/courses');
         if (!response.ok) throw new Error('Failed to fetch courses');
         
-        const stringData = await response.json();
+        const data = await response.text();
+        const slicedData = data.slice(1, -6);
+        console.log(slicedData);
+        const stringData = slicedData.split(/@#",/)
+        console.log(stringData);
         // Parse the course strings into usable objects
         const parsedCourses = stringData.map(courseStr => parseCourseString(courseStr));
         setCourses(parsedCourses);
@@ -139,7 +148,7 @@ function App() {
       const clubString = clubData.slice(1, -6);
       // const result = `,${clubString},`;
       const clubStrings = clubString.split(/@#",/)
-      console.log(clubStrings);
+      // console.log(clubStrings);
       // Parse the club strings and handle both array and single string responses
       let parsedClubs = [];
       if (Array.isArray(clubStrings)) {
@@ -169,15 +178,19 @@ function App() {
   // Search clubs by course
   const searchClubsByCourse = async (course) => {
     // Create a search term from the course title and description
-    const searchTerm = `${course.title} ${course.description}`.split(' ').slice(0, 5).join(' ');
-    
+    //const searchTerm = `${course.subject_prefix} ${course.course_number}`//`${course.title} ${course.description}`.split(' ').slice(0, 5).join(' ');
+    const searchTerm = `${course.title} ${course.description}`
+    console.log(searchTerm)
     try {
       setIsLoading(true);
+      //const response = await fetch(`http://localhost:5000/courseQuery?text=${encodeURIComponent(searchTerm)}`);
       const response = await fetch(`http://localhost:5000/query?text=${encodeURIComponent(searchTerm)}`);
       if (!response.ok) throw new Error('Search by course failed');
       
-      const clubStrings = await response.json();
-      
+      const clubData = await response.text();
+      const clubString = clubData.slice(1, -6);
+      // const result = `,${clubString},`;
+      const clubStrings = clubString.split(/@#",/)
       // Parse the club strings
       let parsedClubs = [];
       if (Array.isArray(clubStrings)) {
