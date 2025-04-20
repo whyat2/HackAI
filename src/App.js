@@ -43,6 +43,8 @@ function App() {
     const titleMatch = parseClubString[0];
     const categoryMatch = parseClubString[1];
     const missionMatch = parseClubString[2];
+    const presidentMatch = parseClubString[3];
+    const emailMatch = parseClubString[4];
     
     /*
     const titleMatch = clubStr.match(/Title:\s*([^\n]+)/);
@@ -55,8 +57,8 @@ function App() {
       title: titleMatch.slice(4),//titleMatch ? titleMatch[1] : 'Unknown Club',
       category: categoryMatch, //? categoryMatch[1] : 'Uncategorized',
       mission_description: missionMatch, //? missionMatch[1] : 'No description available',
-      president_name: 'Not specified', // These might not be in the string format
-      email: 'No contact information'  // These might not be in the string format
+      president_name: presidentMatch, // These might not be in the string format
+      email: emailMatch  // These might not be in the string format
     };
   };
 

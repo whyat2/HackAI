@@ -46,14 +46,14 @@ def printAllWithA(index, title, category, missionDescripts, presidentName, email
             print("-" * 40)
 
 
-def getEmbeddingString(index, title, category, missionDescripts):
+def getEmbeddingString(index, title, category, missionDescripts, presidentName, email):
     EmbeddingStrings = []
     for i in range(len(index)):
         #EmbeddingStrings.append("{Title: " + title[i] + "@$%,Category: " + category[i] + "!$%,Mission Description: " + missionDescripts[i] + "&$%}")
-        EmbeddingStrings.append(title[i] + "$$$" + category[i] + "$$$" + missionDescripts[i] + "@#")
+        EmbeddingStrings.append(title[i] + "$$$" + category[i] + "$$$" + missionDescripts[i] + "$$$" + str(presidentName[i]) + "$$$" + str(email[i]) + "@#")
     return EmbeddingStrings
 
 
-Index, title, category, missionDescripts, presidentName, email, pictureUrl = getData()
-printAllWithA(Index, title, category, missionDescripts, presidentName, email, pictureUrl)
-print(getEmbeddingString(Index, title, category, missionDescripts))
+#Index, title, category, missionDescripts, presidentName, email, pictureUrl = getData()
+#printAllWithA(Index, title, category, missionDescripts, presidentName, email, pictureUrl)
+#print(getEmbeddingString(Index, title, category, missionDescripts))

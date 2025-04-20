@@ -2,7 +2,7 @@ import json
 import getClubData
 import chromadb
 index, title, category, missionDescripts, presidentName, email, pictureUrl = getClubData.getData()
-embedStrings = getClubData.getEmbeddingString(index, title, category, missionDescripts)
+embedStrings = getClubData.getEmbeddingString(index, title, category, missionDescripts, presidentName, email)
 with open("./data/club_embeddings.json", "r") as f:
     data = json.load(f)
 clubEmbedding = data.get("embedding")
