@@ -20,6 +20,6 @@ def getCourses():
         numbers.append(number)
         titles.append(title)
         descriptions.append(description)
-        jsonStrings.append("{Prefix: " + prefix + "\n" + ",Number: " + number + "\n" + ",Title: " + title + "\n" + ",Description: " + description + "}")
+        jsonStrings.append("{Prefix: \'" + prefix + "\',Number: \'" + number + "\',Title: " + title + "\'Description: \'" + description + "\'}")
 
     return jsonStrings
