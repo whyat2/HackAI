@@ -1,4 +1,4 @@
-##Welcome to the Club Hub!
+## Welcome to the Club Hub!
 
 A friendly, up-to-date website for UTD student organizations! Find your next cozy hangout, fun night out, professional experience, or all of the above here at the Club Hub.
 
